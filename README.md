@@ -84,7 +84,3 @@ When contributing, aim for:
 No license has been defined yet.
 
 If you plan to open-source usage broadly, add a repository license in a follow-up update.
-=======
-# ai-agent-skills
-
-A repository of reusable skills and useful files that can be imported into projects by different AI agents and/or providers.
