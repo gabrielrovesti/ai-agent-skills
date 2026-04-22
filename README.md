@@ -1,2 +1,3 @@
 # ai-agent-skills
-A collection of general skills to be used across different agents and/or AI providers
+
+A repository of reusable skills and useful files that can be imported into projects by different AI agents and/or providers.
