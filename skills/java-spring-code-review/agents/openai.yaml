@@ -1,4 +1,0 @@
-interface:
-  display_name: "Java Spring Code Review"
-  short_description: "Findings-first review for Java/Spring diffs"
-  default_prompt: "Use $java-spring-code-review to review this Java or Spring change for regressions, security issues, and data-access risks."
