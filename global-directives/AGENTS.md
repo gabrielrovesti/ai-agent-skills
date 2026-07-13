@@ -143,6 +143,23 @@ Prefer:
 
 ---
 
+## 7a. Database and query impact discipline
+
+Treat every change involving a SQL query, database migration, constraint, index, JDBC driver, connection pool, or database-facing runtime path as an impact-analysis task, not as a local edit.
+
+Before changing it, establish and report:
+
+- the business meaning of every affected value: calculation, persisted data, dashboard/reporting value, API payload, or operational audit;
+- the complete consumer surface: direct callers, UI/report/DWH consumers, related tests, migrations, and the Git history that introduced the current behavior;
+- both result correctness and execution impact: query plan and indexes, row volume, joins/CTEs/subqueries, lock scope, transaction duration, connection-pool pressure, and downstream calls inside transactions;
+- whether the request is a targeted rollback. Isolate the affected commit, query, or configuration: never revert an entire release when the actual change is narrower.
+
+For runtime DB incidents, do not diagnose a database outage from Hikari timeouts alone. Distinguish pool exhaustion, slow or blocked queries, unavailable connection creation, effective runtime pool configuration, and real database connectivity. Prefer runtime proof: effective pod configuration, Hikari metrics, `pg_stat_activity`, locks, and `EXPLAIN (ANALYZE, BUFFERS)` with representative parameters.
+
+For a production-facing query or persistence change, validate both business values and execution behavior in the appropriate controlled environments, normally C and P data where authorised. Do not trade a documented business rule for a performance rollback without making the functional regression explicit.
+
+---
+
 ## 8. Match the codebase
 
 Conformance beats preference.
@@ -512,3 +529,5 @@ Always end with:
 
 If no files changed:
 - state that explicitly
+
+Before handing off any approved source change, remind the user that it must be committed on the intended branch. Do not create a commit unless the user explicitly asks for it.
