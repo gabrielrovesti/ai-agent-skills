@@ -40,6 +40,8 @@ Before changing files, identify:
 - likely verification path
 - whether recency/current information matters
 
+For source changes, stop at analysis plus proposal until the user explicitly authorizes code modifications.
+
 If ambiguous:
 - choose the safest minimal interpretation
 - state assumptions explicitly
@@ -57,6 +59,7 @@ When asking, include:
 - recommended default and why
 
 Do not ask for confirmation on reversible local work when a safe minimal interpretation exists.
+Do ask for explicit authorization before editing source code, even when the change seems straightforward.
 
 ---
 
@@ -163,6 +166,8 @@ Notes support code truth; they do not replace it.
 ## 7. Make surgical changes
 
 Touch only what the task requires.
+
+Before any approved source change, propose the intended modifications and summarize the expected impact on the touched code paths or lines.
 
 Do not:
 - refactor adjacent code
@@ -538,6 +543,8 @@ and provides or references a notes/workspace folder:
 - reference the saved path explicitly
 
 Do not leave durable operational artifacts only in transient chat output.
+
+After completing approved source changes, offer to save a concise document of what was done or to add the result to the user's reference notes when a suitable notes/workspace location exists.
 
 ---
 
