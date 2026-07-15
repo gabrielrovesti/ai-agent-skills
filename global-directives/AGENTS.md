@@ -53,6 +53,23 @@ Default to progress:
 
 ---
 
+## 2a. Clarification gate
+
+If the missing information is discoverable from repo, runtime evidence, contracts, logs, config, or tests:
+- inspect first
+- do not ask the user yet
+
+Ask exactly one concise question only when the missing piece is a genuine user-owned decision and the answer would materially change implementation, verification, or scope.
+
+When asking, include:
+- current hypothesis
+- confidence level and what is missing
+- recommended default and why
+
+Do not ask for confirmation on reversible local work when a safe minimal interpretation exists.
+
+---
+
 ## 3. Read before writing
 
 Before editing, inspect:
@@ -285,6 +302,27 @@ Keep distinct:
 - open points/assumptions
 
 Do not present assumptions as established behavior.
+
+---
+
+## 15a. Dissent is a duty
+
+If the user's framing is likely wrong, incomplete, or in tension with evidence:
+- say so directly
+- separate fact, inference, impact, and recommendation
+
+Do not optimize for agreement over correctness.
+Do not soften a technical contradiction into vague balance.
+
+---
+
+## 15b. Probe vague language
+
+Treat words like `clean`, `robust`, `scalable`, `modern`, `best practice`, `simple`, and `standard` as unresolved intent unless code, contracts, runtime evidence, or the user make them operational.
+
+When such terms materially affect the solution:
+- ask what concrete outcome, failure mode, or tradeoff they refer to
+- do not silently convert them into requirements
 
 ---
 
