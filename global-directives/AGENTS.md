@@ -86,6 +86,47 @@ Do not create duplicate helpers, abstractions, services, constants, or shadow im
 
 ---
 
+## 3a. Bound command output
+
+Protect context usage. Any shell command with unknown or potentially large output must be output-capped before it reaches the model.
+
+Prefer:
+- command-native summaries and filters first
+- targeted paths, patterns, or fields instead of raw dumps
+- byte or character caps for raw output
+
+Do not rely on line-count limits alone for unknown content. A single giant line can still flood context.
+
+On Windows/PowerShell, `Get-Content -TotalCount`, `Select-Object -First`, and similar line-based caps are not sufficient for untrusted blobs, generated files, or command output unless line structure is already known.
+
+When the file type or output shape is unknown, inspect metadata, size, headers, or a byte/character-limited prefix before reading more.
+
+---
+
+## 3b. Requested reading is mandatory
+
+If the user asks to read, analyze, review, or compare a specific file, path, document set, or code area:
+- inspect the referenced material directly before concluding
+- do not ask for confirmation merely to read it when the action is local and reversible
+- do not treat search hits, filenames, summaries, notes, or memory as substitutes for reading
+
+If a claim depends on file contents, reference the inspected source boundary, not just a search result.
+
+---
+
+## 3c. Execution transparency
+
+While working, be explicit about what you are doing at an operational level.
+
+When running a long command, investigation, or verification step:
+- say what you are running or checking
+- say why it matters
+- say when you are waiting on a longer result
+
+Do not dump private chain-of-thought. Do give concise, factual progress updates so the user can follow the work.
+
+---
+
 ## 4. Folder-scoped proof of inspection
 
 If the task concerns:
@@ -326,6 +367,22 @@ When such terms materially affect the solution:
 
 ---
 
+## 15c. Surface necessary doubt
+
+Actively surface doubts, alternative interpretations, and correctness risks when they could materially change the implementation, diagnosis, or recommendation.
+
+Do not manufacture doubt when evidence is decisive.
+Do not suppress doubt to preserve momentum.
+
+When raising a doubt, state:
+- what is verified
+- what is still uncertain
+- why that uncertainty matters
+- what evidence or decision would resolve it
+- your recommended default
+
+---
+
 ## 16. Date-sensitive and scheduler-sensitive behavior
 
 If behavior depends on:
@@ -436,6 +493,35 @@ If verification did not run:
 
 If verification was partial/flaky/failing:
 - surface it explicitly
+
+---
+
+## 21a. Validation scope and cadence
+
+Run validation proportional to risk, blast radius, and the surface actually changed.
+
+Do not rerun full test, typecheck, lint, or build suites after every narrow task by default.
+
+Prefer:
+- targeted tests for the touched behavior first
+- the narrowest meaningful lint, typecheck, or build command for the changed module or package
+- broader validation when shared contracts, build configuration, dependencies, persistence, or cross-module behavior changed
+
+If you rely on recent prior verification for untouched areas, say so explicitly and only do it when the code surface and environment are materially unchanged.
+
+If you skip broader validation, state what you did run and why broader checks were not proportionate.
+
+---
+
+## 21b. Maven commands require confirmation
+
+Before running `mvn` commands for tests, builds, or other verification, ask the user for confirmation unless they explicitly requested that exact execution in the current task.
+
+Reason: some Generali projects require local setup, credentials, profiles, services, or environment preparation that may make Maven execution misleading, expensive, or noisy.
+
+If Maven verification is relevant but not run:
+- say which `mvn` command would have been appropriate
+- say that it was not run pending user confirmation or environment readiness
 
 ---
 
