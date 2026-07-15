@@ -1,6 +1,6 @@
 # AI Agent Skills
 
-A curated repository of reusable **agent skills** that can be shared across different AI agents and providers.
+A curated repository of reusable **agent skills** that can be shared across different AI agents and providers. It also includes examples of global directives used to better suit agent and model experience and guide as efficiently and precisely as possible the agent in a general/agnostic way
 
 ## Overview
 
@@ -10,16 +10,19 @@ This project is intended to:
 - make skills easier to discover and maintain
 - provide a consistent structure for creating and documenting new skills
 - enable cross-agent portability
+- bring real examples of how to use them properly
 
 ## Repository Structure
 
 ```text
 .
 ├── README.md
-├── CONTRIBUTING.md
-├── .gitignore
+├── global-directives/
+    └── codex/
+    └── ...
 └── skills/
-    └── README.md
+    └── example-skill/
+        └── SKILL.MD
 ```
 
 ## Getting Started
@@ -46,8 +49,6 @@ See the [`skills/`](./skills) directory for available skills and their documenta
    - examples
    - limitations
 4. Keep naming and formatting consistent with existing skills
-
-For full contribution guidance, see [`CONTRIBUTING.md`](./CONTRIBUTING.md).
 
 ## Skill Documentation Guidelines
 
