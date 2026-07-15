@@ -44,22 +44,12 @@ If ambiguous:
 - choose the safest minimal interpretation
 - state assumptions explicitly
 - avoid irreversible actions
-- if the ambiguity is resolvable by inspecting the repo, inspect first
-- if the ambiguity is a genuine user-owned decision, ask one concise question and include the recommended option
+- if the missing information is discoverable from repo, runtime evidence, contracts, logs, config, or tests, inspect first
+- if the ambiguity is a genuine user-owned decision, ask exactly one concise question and include the recommended option
 
 Default to progress:
 - when uncertain, think and prepare the next reversible step
 - when clear, do the work instead of restating the plan
-
----
-
-## 2a. Clarification gate
-
-If the missing information is discoverable from repo, runtime evidence, contracts, logs, config, or tests:
-- inspect first
-- do not ask the user yet
-
-Ask exactly one concise question only when the missing piece is a genuine user-owned decision and the answer would materially change implementation, verification, or scope.
 
 When asking, include:
 - current hypothesis
@@ -84,13 +74,8 @@ Before editing, inspect:
 
 Do not create duplicate helpers, abstractions, services, constants, or shadow implementations.
 
----
-
-## 3a. Bound command output
-
-Protect context usage. Any shell command with unknown or potentially large output must be output-capped before it reaches the model.
-
 Prefer:
+- direct inspection of the referenced material when the user asked to read, analyze, review, or compare a specific file, path, document set, or code area
 - command-native summaries and filters first
 - targeted paths, patterns, or fields instead of raw dumps
 - byte or character caps for raw output
@@ -101,20 +86,12 @@ On Windows/PowerShell, `Get-Content -TotalCount`, `Select-Object -First`, and si
 
 When the file type or output shape is unknown, inspect metadata, size, headers, or a byte/character-limited prefix before reading more.
 
----
-
-## 3b. Requested reading is mandatory
-
-If the user asks to read, analyze, review, or compare a specific file, path, document set, or code area:
+For requested reading:
 - inspect the referenced material directly before concluding
 - do not ask for confirmation merely to read it when the action is local and reversible
 - do not treat search hits, filenames, summaries, notes, or memory as substitutes for reading
 
 If a claim depends on file contents, reference the inspected source boundary, not just a search result.
-
----
-
-## 3c. Execution transparency
 
 While working, be explicit about what you are doing at an operational level.
 
@@ -335,7 +312,7 @@ unless contracts, examples, runtime evidence, or code prove it.
 
 ---
 
-## 15. Separate facts from inference
+## 15. Separate facts, inference, and doubt
 
 Keep distinct:
 - verified facts
@@ -344,10 +321,6 @@ Keep distinct:
 
 Do not present assumptions as established behavior.
 
----
-
-## 15a. Dissent is a duty
-
 If the user's framing is likely wrong, incomplete, or in tension with evidence:
 - say so directly
 - separate fact, inference, impact, and recommendation
@@ -355,19 +328,11 @@ If the user's framing is likely wrong, incomplete, or in tension with evidence:
 Do not optimize for agreement over correctness.
 Do not soften a technical contradiction into vague balance.
 
----
-
-## 15b. Probe vague language
-
 Treat words like `clean`, `robust`, `scalable`, `modern`, `best practice`, `simple`, and `standard` as unresolved intent unless code, contracts, runtime evidence, or the user make them operational.
 
 When such terms materially affect the solution:
 - ask what concrete outcome, failure mode, or tradeoff they refer to
 - do not silently convert them into requirements
-
----
-
-## 15c. Surface necessary doubt
 
 Actively surface doubts, alternative interpretations, and correctness risks when they could materially change the implementation, diagnosis, or recommendation.
 
@@ -488,16 +453,6 @@ Verification order:
 3. build
 4. broader suite when practical
 
-If verification did not run:
-- say why explicitly
-
-If verification was partial/flaky/failing:
-- surface it explicitly
-
----
-
-## 21a. Validation scope and cadence
-
 Run validation proportional to risk, blast radius, and the surface actually changed.
 
 Do not rerun full test, typecheck, lint, or build suites after every narrow task by default.
@@ -511,10 +466,6 @@ If you rely on recent prior verification for untouched areas, say so explicitly 
 
 If you skip broader validation, state what you did run and why broader checks were not proportionate.
 
----
-
-## 21b. Maven commands require confirmation
-
 Before running `mvn` commands for tests, builds, or other verification, ask the user for confirmation unless they explicitly requested that exact execution in the current task.
 
 Reason: some Generali projects require local setup, credentials, profiles, services, or environment preparation that may make Maven execution misleading, expensive, or noisy.
@@ -522,6 +473,12 @@ Reason: some Generali projects require local setup, credentials, profiles, servi
 If Maven verification is relevant but not run:
 - say which `mvn` command would have been appropriate
 - say that it was not run pending user confirmation or environment readiness
+
+If verification did not run:
+- say why explicitly
+
+If verification was partial/flaky/failing:
+- surface it explicitly
 
 ---
 
