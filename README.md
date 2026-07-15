@@ -22,7 +22,7 @@ This project is intended to:
     └── ...
 └── skills/
     └── example-skill/
-        └── SKILL.MD
+        └── SKILL.md
 ```
 
 ## Getting Started
@@ -67,18 +67,11 @@ Each skill should include:
 
 When contributing, aim for:
 
-- clear and concise language
+- clear and concise language (token-efficient)
 - deterministic behavior where possible
 - explicit assumptions and constraints
 - portable usage across providers
 - safe defaults and security-aware behavior
-
-## Roadmap (Initial)
-
-- [ ] Add first production-ready skill set
-- [ ] Add examples for multiple providers
-- [ ] Add validation checklist for skill quality
-- [ ] Add CI checks as repository grows
 
 ## License
 
