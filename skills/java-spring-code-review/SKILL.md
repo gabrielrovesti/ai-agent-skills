@@ -22,10 +22,12 @@ Use this skill for review work on Java and Spring Boot code when the goal is to 
 
 Collect the smallest useful scope:
 
-1. changed files or diff
+1. changed files or diff, preferably pinned to a fixed point when the user gives one
 2. build file when versions or dependencies may matter
 3. direct callers, repository methods, DTOs, mappers, config, or tests touched by the change
 4. whether the user wants findings only, or also fix direction
+
+If the user asks to review "since X", resolve and use that fixed point explicitly rather than reviewing the current worktree vaguely.
 
 ### Step 2: Reconstruct intent before judging
 
@@ -35,6 +37,7 @@ Read enough nearby code to answer:
 - what was previously guaranteed
 - what inputs, data, or timing assumptions the code relies on
 - what verification should prove the change safe
+- what the originating spec, ticket, or requirement appears to demand when one exists
 
 ### Step 3: Load only the references that match the change
 
@@ -52,7 +55,16 @@ Escalate when needed:
 - Use `jpa-patterns` for deep persistence design or Hibernate-specific diagnosis.
 - Use `springboot-ticket-diagnosis` when the real question is user-visible runtime behavior rather than code quality alone.
 
-### Step 4: Run review passes in this order
+### Step 4: Separate standards drift from spec drift
+
+Keep these questions distinct:
+
+- Standards drift: does the change violate repo conventions or create maintainability or operational risk?
+- Spec drift: does the change fail to implement, or silently change, the intended behavior from the ticket, spec, or user request?
+
+If no reliable spec source exists, say so explicitly and keep the review focused on code-grounded risks.
+
+### Step 5: Run review passes in this order
 
 #### Pass A: Behavioral correctness
 
@@ -88,6 +100,7 @@ Report a finding only when you can explain:
 - where it is
 - why it is risky or wrong
 - what behavior can break, leak, or regress
+- whether the problem is primarily standards drift, spec drift, or both
 
 Avoid low-value comments such as naming preferences, stylistic rewrites, or hypothetical abstractions unless they create a concrete defect risk.
 
