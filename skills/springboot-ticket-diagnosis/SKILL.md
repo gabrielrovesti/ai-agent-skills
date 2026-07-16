@@ -27,25 +27,30 @@ Use this skill for ticket-style backend diagnosis in Spring Boot services when t
    - what did the user expect
    - what actually happened
    - whether the ask is diagnosis, confirmation, or fix
-2. Identify the real entrypoint.
+2. Build the tightest available proof loop before theorizing.
+   - failing test if one can isolate the behavior
+   - reproducible request, script, payload replay, or log-backed reproduction
+   - a narrower deterministic check if the current signal is slow or flaky
+   - if no reliable loop exists, say so explicitly and list what evidence is still missing
+3. Identify the real entrypoint.
    - controller endpoint
    - scheduler
    - consumer/listener
    - batch trigger
-3. Reconstruct the runtime path in order.
+4. Reconstruct the runtime path in order.
    - request or trigger
    - guards and validation
    - service decisions
    - repository and external-client calls
    - response mapping
    - async or scheduled follow-up work
-4. Check non-code gates before blaming Java logic.
+5. Check non-code gates before blaming Java logic.
    - DB rows
    - catalog/config flags
    - profiles
    - environment-dependent filters
    - contract or payload constraints
-5. Close with a cause judgment:
+6. Close with a cause judgment:
    - expected business behavior
    - data/config problem
    - contract mismatch
@@ -63,6 +68,7 @@ Use this skill for ticket-style backend diagnosis in Spring Boot services when t
 
 ## Proof expectations
 
+- show the tightest proof loop or explain why one could not be built
 - cite the entrypoint class and the service owner
 - cite the key repository, query, or client call involved
 - if the result depends on data, show the needed DB/config proof
@@ -70,6 +76,7 @@ Use this skill for ticket-style backend diagnosis in Spring Boot services when t
 
 ## Guardrails
 
+- Do not jump to root-cause speculation before you have a reproducible signal, a payload replay, or an equivalent proof path.
 - Do not generalize date-sensitive behavior from a partial sample.
 - Do not claim runtime truth from static code alone when logs, payloads, or DB checks are available.
 - Do not stop at backend code if frontend wiring can materially alter visible behavior.
